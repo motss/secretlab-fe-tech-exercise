@@ -1,4 +1,4 @@
-import type { AppPageServerProps } from '@/types';
+import type { AppPageServerProps } from '@/app/types/types';
 
 interface Params {
   id: string;
