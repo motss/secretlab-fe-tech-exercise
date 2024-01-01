@@ -1,12 +1,5 @@
 import type { InferGetServerSidePropsType } from 'next/types';
-
-export type ApiResponse<Data extends object | undefined = undefined, Err extends Error | undefined = undefined> = {
-  data: Data;
-  error: undefined;
-} | {
-  data: undefined;
-  error: Err;
-};
+import type { FallbackNever } from './utility';
 
 interface AppPageProps<
   Params extends object = object,
@@ -22,4 +15,10 @@ export type AppPageServerProps<
   Fn extends (args: any) => Promise<{ props: object; }> = (args: any) => Promise<{ props: object; }>
 > = FallbackNever<InferGetServerSidePropsType<Fn>> & AppPageProps<Params, SearchParams>;
 
-type FallbackNever<T extends object | never> = T extends never ? object : T;
+export type ApiResponse<Data extends object | undefined = undefined, Err extends Error | undefined = undefined> = {
+  data: Data;
+  error: undefined;
+} | {
+  data: undefined;
+  error: Err;
+};
