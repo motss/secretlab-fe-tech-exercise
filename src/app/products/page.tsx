@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import { getProducts } from '../helpers/getProducts/getProducts';
 import type { Products } from '../types/api-products';
 import type { AppPageServerProps } from '../types/types';
@@ -10,19 +12,21 @@ export default async function Products({
     <div>
       Products
 
-      {error ? (<p>error</p>) : (
+      {error ? (<p>{error.message}</p>) : (
         <ul className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(300px,1fr))]">
           {data.products.map((product) => {
             return (
               <li key={product.id}>
-                <p>id: {product.id}</p>
-                <p>title: {product.title}</p>
-                <p>brand: {product.brand}</p>
-                <p>price: {product.price}</p>
-                <p>rating: {product.rating}</p>
-                <p>stock: {product.stock}</p>
-                <p className="w-[100%] break-words break-all whitespace-nowrap text-balance text-ellipsis">{product.thumbnail}</p>
-                <p className="w-[100%] break-words break-all whitespace-nowrap text-balance text-ellipsis">{product.images.join()}</p>
+                <Link href={`/product/${product.id}`}>
+                  <p>id: {product.id}</p>
+                  <p>title: {product.title}</p>
+                  <p>brand: {product.brand}</p>
+                  <p>price: {product.price}</p>
+                  <p>rating: {product.rating}</p>
+                  <p>stock: {product.stock}</p>
+                  <p className="w-[100%] break-words break-all whitespace-nowrap text-balance text-ellipsis">{product.thumbnail}</p>
+                  <p className="w-[100%] break-words break-all whitespace-nowrap text-balance text-ellipsis">{product.images.join()}</p>
+                </Link>
               </li>
             );
           })}

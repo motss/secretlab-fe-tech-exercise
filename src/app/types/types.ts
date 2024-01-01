@@ -1,10 +1,10 @@
 import type { InferGetServerSidePropsType } from 'next/types';
 
-export type ApiResponse<Data extends object | null = null, Err extends Error | null = null> = {
+export type ApiResponse<Data extends object | undefined = undefined, Err extends Error | undefined = undefined> = {
   data: Data;
-  error: null;
+  error: undefined;
 } | {
-  data: null;
+  data: undefined;
   error: Err;
 };
 

@@ -13,11 +13,11 @@ export async function getProducts(): Promise<ApiResponse<Products, Error>> {
 
     return {
       data,
-      error: null,
+      error: undefined,
     };
   } catch (error) {
     return {
-      data: null,
+      data: undefined,
       error: error as Error,
     };
   }
