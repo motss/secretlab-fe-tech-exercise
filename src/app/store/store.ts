@@ -2,9 +2,9 @@ import { createStore } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import type { AppStoreStateAndActions } from '@/app/types/store';
 import { initialStoreState } from './constants';
 import { createCartActions } from './createCartActions';
+import { AppStoreStateAndActions } from './types';
 
 export const store = createStore<AppStoreStateAndActions>()(
   persist(

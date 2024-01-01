@@ -1,4 +1,4 @@
-import { Product } from './api-product';
+import { Product } from '../types/api-product';
 
 export interface AppStoreActions {
   actions: StoreActions;
@@ -21,6 +21,8 @@ interface StoreCart {
 
 export interface StoreCartActions {
   decrementProductCount(product: Product): void;
+  getProductList(): StoreCartProduct[];
+  getSummary(): Pick<StoreCart, 'discountTotal' | 'subtotal' | 'total'>;
   getTotalProductCount(): number;
   incrementProductCount(product: Product): void;
   removeProduct(product: Product): void;

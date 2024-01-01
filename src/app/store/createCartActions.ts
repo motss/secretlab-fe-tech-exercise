@@ -1,7 +1,7 @@
 import type { StateCreator } from 'zustand';
 
 import type { Product } from '@/app/types/api-product';
-import type { AppStoreState, StoreCartActions } from '@/app/types/store';
+import type { AppStoreState, StoreCartActions } from '@/app/store/types';
 
 function toUid({ brand, category, id }: Product) {
   return [
@@ -31,6 +31,18 @@ export const createCartActions: StateCreator<AppStoreState, [], [], StoreCartAct
     },
     getTotalProductCount() {
       return Object.keys(get().cart.products).length;
+    },
+    getProductList() {
+      return Object.values(get().cart.products);
+    },
+    getSummary() {
+      const { discountTotal, subtotal, total } = get().cart;
+
+      return {
+        discountTotal,
+        subtotal,
+        total,
+      };
     },
     incrementProductCount(product) {
       debugger;

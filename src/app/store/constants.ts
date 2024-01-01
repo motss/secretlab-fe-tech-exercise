@@ -1,4 +1,4 @@
-import type { AppStoreState } from '@/app/types/store';
+import type { AppStoreState } from '@/app/store/types';
 
 export const initialStoreState: AppStoreState = {
   cart: {
