@@ -13,7 +13,7 @@ function toUid({ brand, category, id }: Product) {
 
 export const createCartActions: StateCreator<AppStoreState, [], [], StoreCartActions> = (set, get) => {
   return {
-    decrementProductCount(product) {
+    decrementProductCountBy(product, offset) {
       set((state) => {
         const uid = toUid(product);
         const found = state.cart.products[uid];
@@ -22,36 +22,39 @@ export const createCartActions: StateCreator<AppStoreState, [], [], StoreCartAct
           if (1 === found.count) {
             delete state.cart.products[uid];
           } else {
-            state.cart.products[uid].count += 1;
+            state.cart.products[uid].count += (offset || 0);
           }
         }
 
         return state;
       });
     },
-    getTotalProductCount() {
-      return Object.keys(get().cart.products).length;
+    getTotalProductCount(products) {
+      return Object.values(products).reduce((sum, product) => sum + product.count, 0);
     },
-    getProductList() {
-      return Object.values(get().cart.products);
-    },
-    getSummary() {
-      const { discountTotal, subtotal, total } = get().cart;
+    getProduct(product) {
+      const uid = toUid(product);
+      const found = get().cart.products[uid];
 
+      return found;
+    },
+    getProductList(products) {
+      return Object.values(products);
+    },
+    getSummary({ discountTotal, subtotal, total }) {
       return {
         discountTotal,
         subtotal,
         total,
       };
     },
-    incrementProductCount(product) {
-      debugger;
+    incrementProductCountBy(product, offset) {
       set((state) => {
         const uid = toUid(product);
         const found = state.cart.products[uid];
 
         if (found) {
-          found.count += 1;
+          found.count += (offset || 0);
         } else {
           state.cart.products[uid] = {
             // todo: create action to retrieve values

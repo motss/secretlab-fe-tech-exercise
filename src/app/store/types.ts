@@ -20,15 +20,16 @@ interface StoreCart {
 }
 
 export interface StoreCartActions {
-  decrementProductCount(product: Product): void;
-  getProductList(): StoreCartProduct[];
-  getSummary(): Pick<StoreCart, 'discountTotal' | 'subtotal' | 'total'>;
-  getTotalProductCount(): number;
-  incrementProductCount(product: Product): void;
+  decrementProductCountBy(product: Product, offset?: number): void;
+  getProduct(product: Product): StoreCartProduct | undefined;
+  getProductList(products: NonNullable<StoreCart['products']>): StoreCartProduct[];
+  getSummary(cart: StoreCart): Pick<StoreCart, 'discountTotal' | 'subtotal' | 'total'>;
+  getTotalProductCount(products: NonNullable<StoreCart['products']>): number;
+  incrementProductCountBy(product: Product, offset?: number): void;
   removeProduct(product: Product): void;
 }
 
-interface StoreCartProduct {
+export interface StoreCartProduct {
   discountSubtotal: number;
   discountTotal: number;
   product: Product;

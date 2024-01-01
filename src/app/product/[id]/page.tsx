@@ -1,3 +1,4 @@
+import { ProductDetails } from '@/app/components/ProductDetails/ProductDetails';
 import { getProductById } from '@/app/helpers/getProductById/getProductById';
 import type { AppPageServerProps } from '@/app/types/types';
 
@@ -9,30 +10,21 @@ export default async function ProductId({
   params
 }: AppPageServerProps<Params>) {
   const { id } = params;
-
   const { data, error } = await getProductById(id);
 
-  return (
-    <div>
-      Product [id]
-      <br />
-      id: {id}
+  if (error) {
+    return (
+      <div>
+        <p>Unable to render due to the following error:</p>
+        <code>
+          <blockquote>{error.message}</blockquote>
+        </code>
+      </div>
+    );
+  }
 
-      {error ? (
-        <p>{error.message}</p>
-      ) : (
-        <section>
-          <p>id: {data.id}</p>
-          <p>title: {data.title}</p>
-          <p>brand: {data.brand}</p>
-          <p>price: {data.price}</p>
-          <p>rating: {data.rating}</p>
-          <p>stock: {data.stock}</p>
-          <p className="w-[100%] break-words break-all whitespace-nowrap text-balance text-ellipsis">{data.thumbnail}</p>
-          <p className="w-[100%] break-words break-all whitespace-nowrap text-balance text-ellipsis">{data.images.join()}</p>
-        </section>
-      )}
-    </div>
+  return (
+    <ProductDetails product={data} />
   );
 }
 

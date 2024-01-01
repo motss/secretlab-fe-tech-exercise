@@ -1,18 +1,21 @@
 'use client';
 
+import { type ComponentProps, useState } from 'react';
 import { useRouter } from 'next/navigation';
+
 import { useStoreActions } from '../hooks/useStoreActions/useStoreActions';
-import { useState } from 'react';
+import { useIsClient } from '../hooks/useIsClient/useIsClient';
 
 export default function Cart() {
   const { push } = useRouter();
-  const { getProductList, getSummary } = useStoreActions();
+  const ready = useIsClient();
+  const { getProductList, getSummary, removeProduct } = useStoreActions();
   const [checkingOut, setCheckingOut] = useState(false);
 
   const products = getProductList();
   const { discountTotal, subtotal, total } = getSummary();
 
-  const handleClick = () => {
+  const handleCheckout = () => {
     setCheckingOut(true);
 
     // fixme: simulate checkout flow
@@ -21,7 +24,17 @@ export default function Cart() {
     }, 3e3);
   };
 
-  return (
+  const handleRemoveProduct: ComponentProps<'button'>['onClick'] = (ev) => {
+    const { id } = ev.currentTarget.dataset as { id: string; };
+
+    const product = products.find(({ product }) => id === String(product.id));
+
+    if (product) {
+      removeProduct(product.product);
+    };
+  };
+
+  return ready ? (
     <div>
       <ul>
         {products.map(({
@@ -34,7 +47,7 @@ export default function Cart() {
           total,
         }) => {
           return (
-            <li>
+            <li key={product.id}>
               <p>id: {product.id}</p>
               <p>title: {product.title}</p>
               <p>brand: {product.brand}</p>
@@ -49,6 +62,8 @@ export default function Cart() {
               <p>discountSubtotal: {discountSubtotal}</p>
               <p>discountTotal: {discountTotal}</p>
               <p>soldOut: {soldOut}</p>
+
+              <button type="button" data-id={product.id} onClick={handleRemoveProduct}>Remove</button>
             </li>
           );
         })}
@@ -60,11 +75,11 @@ export default function Cart() {
         <p>discountTotal: {discountTotal}</p>
         <p>total: {total}</p>
 
-        <button type="button" onClick={handleClick}>Checkout</button>
+        <button type="button" onClick={handleCheckout}>Checkout</button>
         {checkingOut ? <p>Redirecting to checkout page...</p> : null}
       </div>
     </div>
-  );
+  ) : null;
 }
 
 // todo: view added products
