@@ -76,7 +76,7 @@ export default function Cart() {
               <p>discountTotal: {discountTotal}</p>
               <p>soldOut: {soldOut}</p>
 
-              <input type="number" data-id={product.id} value={count} min="1" max="99" onInput={handleCount} />
+              <input type="number" data-id={product.id} value={count} min="0" max={product.stock || 99} onInput={handleCount} />
               <button type="button" data-id={product.id} onClick={handleRemoveProduct}>Remove</button>
             </li>
           );

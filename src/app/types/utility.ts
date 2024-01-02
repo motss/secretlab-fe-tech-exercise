@@ -3,3 +3,5 @@ export type DeepReadonly<T> = T extends object ? {
 } : Readonly<T>;
 
 export type FallbackNever<T extends object | never> = T extends never ? object : T;
+
+export type OmitKey<T extends object, K extends keyof T> = Omit<T, K>;

@@ -1,21 +1,14 @@
 import type { StateCreator } from 'zustand';
 
-import type { Product } from '@/app/types/api-product';
-import type { AppStoreState, StoreCartActions } from '@/app/store/types';
-
-function toUid({ brand, category, id }: Product) {
-  return [
-    category,
-    brand,
-    id,
-  ].join(':');
-}
+import type { AppStoreState, StoreCart, StoreCartActions } from '@/app/store/types';
+import { toProductUid } from '../helpers/toProductUid/toProductUid';
+import type { OmitKey } from '../types/utility';
 
 export const createCartActions: StateCreator<AppStoreState, [], [], StoreCartActions> = (set, get) => {
   return {
     decrementProductCountBy(product, offset) {
       set((state) => {
-        const uid = toUid(product);
+        const uid = toProductUid(product);
         const found = state.cart.products[uid];
 
         if (found) {
@@ -26,6 +19,8 @@ export const createCartActions: StateCreator<AppStoreState, [], [], StoreCartAct
           }
         }
 
+        state.cart.shouldRecalculate = true;
+
         return state;
       });
     },
@@ -33,7 +28,7 @@ export const createCartActions: StateCreator<AppStoreState, [], [], StoreCartAct
       return Object.values(products).reduce((sum, product) => sum + product.count, 0);
     },
     getProduct(product) {
-      const uid = toUid(product);
+      const uid = toProductUid(product);
       const found = get().cart.products[uid];
 
       return found;
@@ -50,7 +45,7 @@ export const createCartActions: StateCreator<AppStoreState, [], [], StoreCartAct
     },
     incrementProductCountBy(product, offset) {
       set((state) => {
-        const uid = toUid(product);
+        const uid = toProductUid(product);
         const found = state.cart.products[uid];
 
         if (found) {
@@ -68,26 +63,43 @@ export const createCartActions: StateCreator<AppStoreState, [], [], StoreCartAct
           };
         }
 
+        state.cart.shouldRecalculate = true;
+
         return state;
       });
     },
     removeProduct(product) {
       set((state) => {
-        delete state.cart.products[toUid(product)];
+        delete state.cart.products[toProductUid(product)];
+        state.cart.shouldRecalculate = true;
+
+        return state;
+      });
+    },
+    updateCartWithCalculation(cart) {
+      set((state) => {
+        Object.entries(cart).forEach(([k, v]) => {
+          state.cart[k as keyof OmitKey<StoreCart, 'shouldRecalculate'>] = v as any;
+        });
+
+        state.cart.shouldRecalculate = false;
+
         return state;
       });
     },
     updateProductCount(product, count) {
       set((state) => {
-        const uid = toUid(product);
+        const uid = toProductUid(product);
         const found = state.cart.products[uid];
 
         if (found) {
           found.count = count;
         }
 
+        state.cart.shouldRecalculate = true;
+
         return state;
       });
-    }
+    },
   };
 };
