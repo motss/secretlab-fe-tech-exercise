@@ -22,7 +22,7 @@ export function useCalculateCart() {
     }
 
     abortControllerRef.current = new AbortController();
-  }, []);
+  }, [updateCartWithCalculation]);
 
   const [isReady] = useDebounce(
     () => {
@@ -41,7 +41,7 @@ export function useCalculateCart() {
         abortControllerRef.current = new AbortController();
       }
     }
-  }, [storeCart]);
+  }, [isReady, storeCart]);
 
   useMount(() => {
     runUpdater(storeCart);

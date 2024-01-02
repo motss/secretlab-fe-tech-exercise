@@ -6,6 +6,8 @@ import { parseProductsSearchParams } from '../helpers/parseProductsSearchParams/
 import type { Products } from '../types/api-products';
 import type { AppPageServerProps } from '../types/types';
 
+export const revalidate = 0;
+
 export default async function Products({
   searchParams,
 }: AppPageServerProps) {
