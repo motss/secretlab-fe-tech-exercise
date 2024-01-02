@@ -1,5 +1,6 @@
 .card {
   grid-template-areas: 'img img'
+    'title title'
     'left right';
 }
 
@@ -7,7 +8,10 @@
   grid-area: img;
 }
 
-.title,
+.title {
+  grid-area: title;
+}
+
 .brand,
 .category {
   grid-area: left;
