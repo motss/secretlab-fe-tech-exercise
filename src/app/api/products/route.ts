@@ -1,12 +1,24 @@
 import { NextResponse } from 'next/server';
 
 import { getProducts } from '@/app/helpers/getProducts/getProducts';
-import { ApiResponse } from '@/app/types/types';
+import { parseProductsSearchParams } from '@/app/helpers/parseProductsSearchParams/parseProductsSearchParams';
+import type { ApiResponse } from '@/app/types/types';
 
-export async function GET() {
-  const { data, error } = await getProducts();
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const filters = parseProductsSearchParams(searchParams);
 
-  return NextResponse.json<ApiResponse<typeof data, typeof error>>(
-    error ? { data: undefined, error } : { data, error: undefined }
-  );
+  const { data, error } = await getProducts(filters);
+
+  if (error) {
+    return NextResponse.json<ApiResponse<undefined, typeof error>>({
+      data: undefined,
+      error,
+    });
+  }
+
+  return NextResponse.json<ApiResponse<typeof data, undefined>>({
+    data,
+    error: undefined,
+  });
 }

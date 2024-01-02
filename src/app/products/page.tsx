@@ -1,36 +1,30 @@
-import Link from 'next/link';
-
+import { ProductsGrid } from '../components/ProductsGrid/ProductsGrid';
+import { ProductsGridFilters } from '../components/ProductsGridFilters/ProductsGridFilters';
 import { getProducts } from '../helpers/getProducts/getProducts';
+import { getProductsCategories } from '../helpers/getProductsCategories/getProductsCategories';
+import { parseProductsSearchParams } from '../helpers/parseProductsSearchParams/parseProductsSearchParams';
 import type { Products } from '../types/api-products';
 import type { AppPageServerProps } from '../types/types';
 
 export default async function Products({
+  searchParams,
 }: AppPageServerProps) {
-  const { data, error } = await getProducts();
+  const filters = parseProductsSearchParams(new URLSearchParams(searchParams as Record<string, string>));
+
+  const products = await getProducts(filters);
+  const categories = await getProductsCategories();
+
+  const error = products.error || categories.error;
 
   return (
     <div>
-      Products
-
-      {error ? (<p>{error.message}</p>) : (
-        <ul className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(300px,1fr))]">
-          {data.products.map((product) => {
-            return (
-              <li key={product.id}>
-                <Link href={`/product/${product.id}`}>
-                  <p>id: {product.id}</p>
-                  <p>title: {product.title}</p>
-                  <p>brand: {product.brand}</p>
-                  <p>price: {product.price}</p>
-                  <p>rating: {product.rating}</p>
-                  <p>stock: {product.stock}</p>
-                  <p className="w-[100%] break-words break-all whitespace-nowrap text-balance text-ellipsis">{product.thumbnail}</p>
-                  <p className="w-[100%] break-words break-all whitespace-nowrap text-balance text-ellipsis">{product.images.join()}</p>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+      {error ? (
+        <p>{error.message}</p>
+      ) : (
+        <div>
+          <ProductsGridFilters categories={categories.data} />
+          <ProductsGrid products={products.data.products} />
+        </div>
       )}
     </div>
   );
