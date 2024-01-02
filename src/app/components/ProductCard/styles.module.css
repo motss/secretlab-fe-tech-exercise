@@ -1,0 +1,19 @@
+.card {
+  grid-template-areas: 'img img'
+    'left right';
+}
+
+.img {
+  grid-area: img;
+}
+
+.title,
+.brand,
+.category {
+  grid-area: left;
+}
+
+.price,
+.rating {
+  grid-area: right;
+}

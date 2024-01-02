@@ -1,32 +1,28 @@
-import type { ProductsGridProps } from './types';
 import Link from 'next/link';
+
+import { ProductCard } from '../ProductCard/ProductCard';
+import type { ProductsGridProps } from './types';
 
 export function ProductsGrid({
   products,
 }: ProductsGridProps) {
   return (
-    <div>
-      Products
+    <div className="grid gap-6 gap-y-8 px-4 xl:px-8">
+      <p>Showing <b>{products.length}</b> products:</p>
 
-      <ul className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(300px,1fr))]">
+      <ul className="grid gap-8 gap-x-4 grid-cols-[repeat(auto-fill,minmax(300px,1fr))]">
         {products.map((product) => {
           return (
             <li key={product.id}>
               <Link href={`/product/${product.id}`}>
-                <p>id: {product.id}</p>
-                <p>title: {product.title}</p>
-                <p>brand: {product.brand}</p>
-                <p>category: {product.category}</p>
-                <p>price: {product.price}</p>
-                <p>rating: {product.rating}</p>
-                <p>stock: {product.stock}</p>
-                <p className="w-[100%] break-words break-all whitespace-nowrap text-balance text-ellipsis">{product.thumbnail}</p>
-                <p className="w-[100%] break-words break-all whitespace-nowrap text-balance text-ellipsis">{product.images.join()}</p>
+                <ProductCard product={product} />
               </Link>
             </li>
           );
         })}
       </ul>
+
+      <p className="grid justify-center mt-6 mb-8">End of page</p>
     </div>
   );
 }
