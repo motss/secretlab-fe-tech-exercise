@@ -38,9 +38,7 @@ export function ProductDetails({
       <p className="w-[100%] break-words break-all whitespace-nowrap text-balance text-ellipsis">{product.thumbnail}</p>
       <p className="w-[100%] break-words break-all whitespace-nowrap text-balance text-ellipsis">{product.images.join()}</p>
 
-      <p>
-        <input className="" type="number" value={value} min="1" max="99" onInput={handleInput} />
-      </p>
+      <input type="number" value={value} min="1" max="99" onInput={handleInput} />
       <button type="button" onClick={handleClick}>Add to cart</button>
     </article>
   ) : null;

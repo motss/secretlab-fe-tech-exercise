@@ -9,7 +9,7 @@ import { useIsClient } from '../hooks/useIsClient/useIsClient';
 export default function Cart() {
   const { push } = useRouter();
   const ready = useIsClient();
-  const { getProductList, getSummary, removeProduct } = useStoreActions();
+  const { getProductList, getSummary, removeProduct, updateProductCount } = useStoreActions();
   const [checkingOut, setCheckingOut] = useState(false);
 
   const products = getProductList();
@@ -26,12 +26,25 @@ export default function Cart() {
 
   const handleRemoveProduct: ComponentProps<'button'>['onClick'] = (ev) => {
     const { id } = ev.currentTarget.dataset as { id: string; };
-
     const product = products.find(({ product }) => id === String(product.id));
 
     if (product) {
       removeProduct(product.product);
     };
+  };
+
+  const handleCount: ComponentProps<'input'>['onInput'] = (ev) => {
+    const { id } = ev.currentTarget.dataset as { id: string; };
+    const product = products.find(({ product }) => id === String(product.id));
+    const newCount = ev.currentTarget.valueAsNumber;
+
+    if (product) {
+      if (newCount === 0) {
+        removeProduct(product.product);
+      } else {
+        updateProductCount(product.product, newCount);
+      }
+    }
   };
 
   return ready ? (
@@ -63,6 +76,7 @@ export default function Cart() {
               <p>discountTotal: {discountTotal}</p>
               <p>soldOut: {soldOut}</p>
 
+              <input type="number" data-id={product.id} value={count} min="1" max="99" onInput={handleCount} />
               <button type="button" data-id={product.id} onClick={handleRemoveProduct}>Remove</button>
             </li>
           );

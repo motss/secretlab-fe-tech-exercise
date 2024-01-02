@@ -27,6 +27,7 @@ export interface StoreCartActions {
   getTotalProductCount(products: NonNullable<StoreCart['products']>): number;
   incrementProductCountBy(product: Product, offset?: number): void;
   removeProduct(product: Product): void;
+  updateProductCount(product: Product, count: number): void;
 }
 
 export interface StoreCartProduct {

@@ -77,5 +77,17 @@ export const createCartActions: StateCreator<AppStoreState, [], [], StoreCartAct
         return state;
       });
     },
+    updateProductCount(product, count) {
+      set((state) => {
+        const uid = toUid(product);
+        const found = state.cart.products[uid];
+
+        if (found) {
+          found.count = count;
+        }
+
+        return state;
+      });
+    }
   };
 };
