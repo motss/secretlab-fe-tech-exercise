@@ -1,20 +1,12 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { useState, type ComponentProps } from 'react';
-import { useMount } from 'react-use';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState, type ComponentProps } from 'react';
 
-import { parseProductsSearchParams } from '@/app/helpers/parseProductsSearchParams/parseProductsSearchParams';
-import type { ProductsGridFiltersProps } from './types';
-
-type FiltersFormData = Record<
-  | 'category'
-  | 'minPrice'
-  | 'maxPrice'
-  | 'minRating'
-  | 'maxRating',
-  string
->;
+import { initialFiltersState } from './constants';
+import { parseSearchParamsIntoFilters } from './helpers/parseSearchParamsIntoFilters/parseSearchParamsIntoFilters';
+import { toSearchParamsFromFitlers } from './helpers/toSearchParamsFromFilters/toSearchParamsFromFilters';
+import type { ProductsGridFiltersProps, ProductsGridFiltersState } from './types';
 
 const noop = () => { /** no-op */ };
 
@@ -22,58 +14,25 @@ export function ProductsGridFilters({
   categories,
 }: ProductsGridFiltersProps) {
   const { push } = useRouter();
-  const [formData, setFormData] = useState<FiltersFormData>(
-    {
-      category: '',
-      minPrice: '',
-      maxPrice: '',
-      minRating: '',
-      maxRating: '',
-    }
-  );
+  const searchParams = useSearchParams();
+  const [formData, setFormData] = useState<ProductsGridFiltersState>(initialFiltersState);
 
   const handleSubmit: ComponentProps<'form'>['onSubmit'] = (ev) => {
     ev.preventDefault();
 
-    const {
-      category,
-      maxPrice,
-      maxRating,
-      minPrice,
-      minRating,
-    } = formData;
-
-    const sp = new URLSearchParams({
-      ...(category && { 'filter.category': category }),
-      ...(minPrice || maxPrice ? { 'filter.price': `${minPrice},${maxPrice}` } : {}),
-      ...(minRating || maxRating ? { 'filter.rating': `${minRating},${maxRating}` } : {}),
-    });
-    sp.sort();
-
-    push(`${window.location.pathname}?${sp}`);
+    push(`${window.location.pathname}?${toSearchParamsFromFitlers(formData)}`);
   };
 
   const handleChange: ComponentProps<'form'>['onChange'] = (ev) => {
     const form = ev.currentTarget;
-    const newFormData = Object.fromEntries(new FormData(form)) as FiltersFormData;
+    const newFormData = Object.fromEntries(new FormData(form)) as ProductsGridFiltersState;
 
     setFormData(newFormData);
   };
 
-  useMount(() => {
-    const filters = parseProductsSearchParams(new URL(window.location.href).searchParams);
-    const [minPrice, maxPrice] = filters.filter?.price ?? [];
-    const [minRating, maxRating] = filters.filter?.rating ?? [];
-    const newFormData = {
-      category: filters.filter?.category ?? '',
-      minPrice: (minPrice ?? -1) === -1 ? '' : String(minPrice),
-      maxPrice: (maxPrice ?? Infinity) === Infinity ? '' : String(maxPrice),
-      minRating: (minRating ?? -1) === -1 ? '' : String(minRating),
-      maxRating: (maxRating ?? Infinity) === Infinity ? '' : String(maxRating),
-    };
-
-    setFormData(newFormData);
-  });
+  useEffect(() => {
+    setFormData(parseSearchParamsIntoFilters(searchParams));
+  }, [searchParams]);
 
   return (
     <form onSubmit={handleSubmit} onChange={handleChange}>
