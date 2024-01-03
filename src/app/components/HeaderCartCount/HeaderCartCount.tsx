@@ -2,9 +2,11 @@
 
 import Link from 'next/link';
 
+import { useCalculateCart } from '@/app/hooks/useCalculateCart/useCalculateCart';
 import { useIsClient } from '@/app/hooks/useIsClient/useIsClient';
 import { useStoreActions } from '@/app/hooks/useStoreActions/useStoreActions';
-import { useCalculateCart } from '@/app/hooks/useCalculateCart/useCalculateCart';
+import { CartIcon } from '../CartIcon/CartIcon';
+import { Badge } from '../Badge/Badge';
 
 export function HeaderCartCount() {
   const { getTotalProductCount } = useStoreActions();
@@ -12,6 +14,9 @@ export function HeaderCartCount() {
   useCalculateCart();
 
   return ready ? (
-    <Link href="/cart">{getTotalProductCount()}</Link>
+    <Link className="block relative w-10 h-10" href="/cart">
+      <CartIcon />
+      <Badge className="absolute right-0 -bottom-[2px]" count={getTotalProductCount()} />
+    </Link>
   ) : null;
 }
