@@ -8,7 +8,7 @@ export function ProductsGrid({
 }: ProductsGridProps) {
   return (
     <div className="grid gap-6 gap-y-8 px-4 xl:px-8">
-      <p>Showing <b>{products.length}</b> products:</p>
+      <p className="text-center">Showing <b>{products.length}</b> products:</p>
 
       <ul className="grid gap-8 gap-x-4 grid-cols-[repeat(auto-fill,minmax(300px,1fr))]">
         {products.map((product) => {
