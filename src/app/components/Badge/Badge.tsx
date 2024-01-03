@@ -5,6 +5,6 @@ export function Badge({
   count,
 }: BadgeProps) {
   return (
-    <div className={`flex items-center justify-center p-4 bg-pink-600 text-slate-50 rounded-[50%] w-6 h-6 scale-75 ${className}`}>{count}</div>
+    <div className={`flex items-center justify-center aspect-video bg-pink-600 text-slate-50 rounded-3xl ps-1 pe-1 text-xs ${className}`}>{count}</div>
   );
 }

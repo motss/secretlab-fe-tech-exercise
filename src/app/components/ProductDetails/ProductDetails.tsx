@@ -4,6 +4,7 @@ import { useState, type ComponentProps } from 'react';
 
 import { useIsClient } from '@/app/hooks/useIsClient/useIsClient';
 import { useStoreActions } from '@/app/hooks/useStoreActions/useStoreActions';
+import { AddToCart } from '../AddToCart/AddToCart';
 import { Price } from '../Price/Price';
 import { Rating } from '../Rating/Rating';
 import type { ProductDetailsProps } from './types';
@@ -41,8 +42,7 @@ export function ProductDetails({
         </section>
 
         <section className="mb-6">
-          <input type="number" value={value} min="1" max={product.stock || 99} onInput={handleInput} />
-          <button type="button" onClick={handleClick}>Add to cart</button>
+          <AddToCart stock={product.stock} value={value} onClick={handleClick} onInput={handleInput} />
         </section>
 
         <section className="mb-4">

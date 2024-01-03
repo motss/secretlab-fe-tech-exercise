@@ -3,6 +3,8 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, type ComponentProps } from 'react';
 
+import { Button } from '../Button/Button';
+import { TextField } from '../TextField/TextField';
 import { initialFiltersState } from './constants';
 import { parseSearchParamsIntoFilters } from './helpers/parseSearchParamsIntoFilters/parseSearchParamsIntoFilters';
 import { toSearchParamsFromFitlers } from './helpers/toSearchParamsFromFilters/toSearchParamsFromFilters';
@@ -61,13 +63,13 @@ export function ProductsGridFilters({
           <div>
             <label htmlFor="minPrice">Minimum price</label>
             <br />
-            <input className="bg-slate-200 hover:bg-slate-300 active:bg-slate-400 max-w-[10ch]" id="minPrice" type="number" name="minPrice" min="0" value={formData.minPrice} onChange={noop} />
+            <TextField id="minPrice" type="number" name="minPrice" min="0" value={formData.minPrice} onChange={noop} />
           </div>
 
           <div>
             <label htmlFor="maxPrice">Maximum price</label>
             <br />
-            <input className="bg-slate-200 hover:bg-slate-300 active:bg-slate-400 max-w-[10ch]" id="maxPrice" type="number" name="maxPrice" min="0" value={formData.maxPrice} onChange={noop} />
+            <TextField id="maxPrice" type="number" name="maxPrice" min="0" value={formData.maxPrice} onChange={noop} />
           </div>
         </div>
 
@@ -75,17 +77,17 @@ export function ProductsGridFilters({
           <div>
             <label htmlFor="minRating">Minimum rating</label>
             <br />
-            <input className="bg-slate-200 hover:bg-slate-300 active:bg-slate-400 max-w-[10ch]" id="minRati  ng" type="number" name="minRating" min="0" step="0.01" value={formData.minRating} onChange={noop} />
+            <TextField id="minRati  ng" type="number" name="minRating" min="0" step="0.01" value={formData.minRating} onChange={noop} />
           </div>
 
           <div className="flex flex-col">
             <label htmlFor="maxRating">Maximum rating</label>
-            <input className="bg-slate-200 hover:bg-slate-300 active:bg-slate-400 max-w-[10ch]" id="maxRating" type="number" name="maxRating" min="0" max="5" step="0.01" value={formData.maxRating} onChange={noop} />
+            <TextField id="maxRating" type="number" name="maxRating" min="0" max="5" step="0.01" value={formData.maxRating} onChange={noop} />
           </div>
         </div>
       </fieldset>
 
-      <button className="px-4 py-2 bg-slate-200 hover:bg-slate-300 active:bg-slate-400 focus:border-solid,border-2,border-slate-950,rounded-md">Filter</button>
+      <Button>Filter</Button>
     </form >
   );
 }

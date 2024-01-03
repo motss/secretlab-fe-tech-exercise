@@ -14,9 +14,9 @@ export function HeaderCartCount() {
   useCalculateCart();
 
   return ready ? (
-    <Link className="block relative w-10 h-10" href="/cart">
+    <Link className="flex items-center gap-1" href="/cart">
       <CartIcon />
-      <Badge className="absolute right-0 -bottom-[2px]" count={getTotalProductCount()} />
+      <Badge count={getTotalProductCount()} />
     </Link>
   ) : null;
 }
