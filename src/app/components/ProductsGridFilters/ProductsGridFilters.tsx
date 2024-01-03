@@ -11,6 +11,7 @@ import type { ProductsGridFiltersProps, ProductsGridFiltersState } from './types
 const noop = () => { /** no-op */ };
 
 export function ProductsGridFilters({
+  className,
   categories,
 }: ProductsGridFiltersProps) {
   const { push } = useRouter();
@@ -35,7 +36,7 @@ export function ProductsGridFilters({
   }, [searchParams]);
 
   return (
-    <form className="p-2 py-4 mb-8 bg-slate-50" onSubmit={handleSubmit} onChange={handleChange}>
+    <form className={`p-2 py-4 mb-8 bg-slate-50 ${className}`} onSubmit={handleSubmit} onChange={handleChange}>
       <fieldset className="mb-5 ps-2">
         <legend className="mb-4 -ms-2">
           Filter products by:

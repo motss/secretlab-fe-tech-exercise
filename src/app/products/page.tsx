@@ -23,10 +23,10 @@ export default async function Products({
       {error ? (
         <p>{error.message}</p>
       ) : (
-        <div>
-          <ProductsGridFilters categories={categories.data} />
-          <ProductsGrid products={products.data.products} />
-        </div>
+        <>
+          <ProductsGridFilters className="xl:px-8" categories={categories.data} />
+          <ProductsGrid className="xl:px-8" products={products.data.products} />
+        </>
       )}
     </div>
   );

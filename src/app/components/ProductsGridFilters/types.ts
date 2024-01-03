@@ -1,4 +1,6 @@
-export interface ProductsGridFiltersProps {
+import type { ComponentProps } from 'react';
+
+export interface ProductsGridFiltersProps extends ComponentProps<'form'> {
   categories: string[];
 }
 
