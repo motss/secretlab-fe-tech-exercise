@@ -27,7 +27,3 @@ export default async function ProductId({
     <ProductDetails product={data} />
   );
 }
-
-// todo: view product details
-// todo: add to cart button to add product to cart
-// todo: product detail should show added count when added to cart

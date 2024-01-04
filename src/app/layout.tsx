@@ -31,5 +31,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-// todo: mini cart on header to show live quantity of products added to cart
