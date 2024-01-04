@@ -1,4 +1,5 @@
 import { computePriceWithoutDiscount } from '@/app/helpers/computePriceWithDiscount/computePriceWithDiscount';
+import { formatPrice } from '@/app/helpers/formatPrice/formatPrice';
 import type { PriceProps } from './types';
 
 export function Price<As extends keyof JSX.IntrinsicElements>({
@@ -19,10 +20,10 @@ export function Price<As extends keyof JSX.IntrinsicElements>({
     <Comp className={`flex items-baseline gap-2 ${className}`}>
       {priceAfterDiscount ? (
         <>
-          <p className={fontSizeCls}>${priceAfterDiscount.toFixed(2)}</p>
+          <p className={fontSizeCls}>{formatPrice(priceAfterDiscount)}</p>
         </>
       ) : null}
-      <p className={priceAfterDiscount ? `line-through text-gray-500 ${isSizeSmall ? 'text-sm' : 'text-lg'}` : `${fontSizeCls}`}>{price.toFixed(2)}</p>
+      <p className={priceAfterDiscount ? `line-through text-gray-500 ${isSizeSmall ? 'text-sm' : 'text-lg'}` : `${fontSizeCls}`}>{formatPrice(price)}</p>
     </Comp>
   );
 }

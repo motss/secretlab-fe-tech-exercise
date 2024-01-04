@@ -2,6 +2,7 @@
 
 import { useState, type ComponentProps } from 'react';
 
+import { formatPrice } from '@/app/helpers/formatPrice/formatPrice';
 import { useIsClient } from '@/app/hooks/useIsClient/useIsClient';
 import { useStoreActions } from '@/app/hooks/useStoreActions/useStoreActions';
 import { AddToCart } from '../AddToCart/AddToCart';
@@ -68,11 +69,11 @@ export function ProductDetails({
               <tbody>
                 <tr>
                   <td className="border px-2">Price</td>
-                  <td className="border px-2">${product.price.toFixed(2)}</td>
+                  <td className="border px-2">{formatPrice(product.price)}</td>
                 </tr>
                 <tr>
                   <td className="border px-2">Discount percentage</td>
-                  <td className="border px-2">{product.discountPercentage.toFixed(2)}%</td>
+                  <td className="border px-2">{product.discountPercentage}%</td>
                 </tr>
                 <tr>
                   <td className="border px-2">Brand</td>

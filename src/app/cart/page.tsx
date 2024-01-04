@@ -7,6 +7,7 @@ import { type ComponentProps } from 'react';
 import { Button } from '../components/Button/Button';
 import { Price } from '../components/Price/Price';
 import { TextField } from '../components/TextField/TextField';
+import { formatPrice } from '../helpers/formatPrice/formatPrice';
 import { useIsClient } from '../hooks/useIsClient/useIsClient';
 import { useStoreActions } from '../hooks/useStoreActions/useStoreActions';
 
@@ -69,7 +70,7 @@ export default function Cart() {
               </Link>
 
               <section className="flex flex-col gap-1 basis-3/12 items-end">
-                <p className="text-lg font-bold">${total.toFixed(2)}</p>
+                <p className="text-lg font-bold">{formatPrice(total)}</p>
                 <TextField type="number" data-id={product.id} value={count} min="0" max={product.stock || 99} onInput={handleCount} />
                 <Button className="max-w-fit pe-0 bg-transparent hover:bg-transparent hover:text-red-600 underline decoration-dotted" type="button" data-id={product.id} onClick={handleRemoveProduct}>Remove</Button>
               </section>
@@ -88,15 +89,15 @@ export default function Cart() {
           <tbody>
             <tr>
               <th className="text-start" scope="row">Subtotal</th>
-              <td className="text-end">${subtotal.toFixed(2)}</td>
+              <td className="text-end">{formatPrice(subtotal)}</td>
             </tr>
             <tr>
               <th className="text-start" scope="row">Discount</th>
-              <td className="text-end">${discountTotal.toFixed(2)}</td>
+              <td className="text-end">{formatPrice(discountTotal)}</td>
             </tr>
             <tr>
               <th className="text-start" scope="row">Total</th>
-              <td className="text-end">${total.toFixed(2)}</td>
+              <td className="text-end">{formatPrice(total)}</td>
             </tr>
           </tbody>
         </table>

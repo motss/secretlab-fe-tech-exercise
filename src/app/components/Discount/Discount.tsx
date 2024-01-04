@@ -1,4 +1,5 @@
 import { computePriceWithoutDiscount } from '@/app/helpers/computePriceWithDiscount/computePriceWithDiscount';
+import { formatPrice } from '@/app/helpers/formatPrice/formatPrice';
 import { Pill } from '../Pill/Pill';
 import type { DiscountProps } from './types';
 
@@ -10,7 +11,7 @@ export function Discount({
 
   return (
     <Pill className="!ps-2 !pe-2" as="p">
-      Save ${discountPrice.toFixed(2)} ({discountPercentage}% off)
+      Save {formatPrice(discountPrice)} ({discountPercentage}% off)
     </Pill>
   );
 }
