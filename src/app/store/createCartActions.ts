@@ -52,7 +52,6 @@ export const createCartActions: StateCreator<AppStoreState, [], [], StoreCartAct
           found.count += (offset || 0);
         } else {
           state.cart.products[uid] = {
-            // todo: create action to retrieve values
             count: 1,
             discountSubtotal: 0,
             discountTotal: 0,

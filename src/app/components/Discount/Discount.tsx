@@ -8,10 +8,11 @@ export function Discount({
   price,
 }: DiscountProps) {
   const { discountPrice } = computePriceWithoutDiscount({ discountPercentage, price });
+  const label = `Save ${formatPrice(discountPrice)} (${discountPercentage}% off)`;
 
   return (
     <Pill className="!ps-2 !pe-2" as="p">
-      Save {formatPrice(discountPrice)} ({discountPercentage}% off)
+      {label}
     </Pill>
   );
 }
