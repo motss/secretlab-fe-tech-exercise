@@ -7,7 +7,7 @@ import { Button } from '../Button/Button';
 import { TextField } from '../TextField/TextField';
 import { initialFiltersState } from './constants';
 import { parseSearchParamsIntoFilters } from './helpers/parseSearchParamsIntoFilters/parseSearchParamsIntoFilters';
-import { toSearchParamsFromFitlers } from './helpers/toSearchParamsFromFilters/toSearchParamsFromFilters';
+import { toSearchParamsFromFilters } from './helpers/toSearchParamsFromFilters/toSearchParamsFromFilters';
 import type { ProductsGridFiltersProps, ProductsGridFiltersState } from './types';
 
 const noop = () => { /** no-op */ };
@@ -23,7 +23,7 @@ export function ProductsGridFilters({
   const handleSubmit: ComponentProps<'form'>['onSubmit'] = (ev) => {
     ev.preventDefault();
 
-    push(`${window.location.pathname}?${toSearchParamsFromFitlers(formData)}`);
+    push(`${window.location.pathname}?${toSearchParamsFromFilters(formData)}`);
   };
 
   const handleChange: ComponentProps<'form'>['onChange'] = (ev) => {
@@ -77,7 +77,7 @@ export function ProductsGridFilters({
           <div>
             <label htmlFor="minRating">Minimum rating</label>
             <br />
-            <TextField id="minRati  ng" type="number" name="minRating" min="0" step="0.01" value={formData.minRating} onChange={noop} />
+            <TextField id="minRating" type="number" name="minRating" min="0" step="0.01" value={formData.minRating} onChange={noop} />
           </div>
 
           <div className="flex flex-col">

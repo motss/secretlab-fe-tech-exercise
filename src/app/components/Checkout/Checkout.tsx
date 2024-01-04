@@ -12,8 +12,6 @@ export function Checkout() {
   useMount(() => {
     const rand = Math.random() * 10e3;
 
-    console.debug({ rand });
-
     window.setTimeout(() => {
       setCheckingOut(false);
     }, rand);

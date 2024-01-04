@@ -2,11 +2,7 @@ import { parseProductsSearchParams } from '@/app/helpers/parseProductsSearchPara
 import type { ProductsGridFiltersState } from '../../types';
 
 export function parseSearchParamsIntoFilters(searchParams: URLSearchParams): ProductsGridFiltersState {
-  const currentSearchParams = new URLSearchParams(searchParams);
-
-  currentSearchParams.sort();
-
-  const filters = parseProductsSearchParams(currentSearchParams);
+  const filters = parseProductsSearchParams(searchParams);
   const [minPrice, maxPrice] = filters.filter?.price ?? [];
   const [minRating, maxRating] = filters.filter?.rating ?? [];
   const state = {

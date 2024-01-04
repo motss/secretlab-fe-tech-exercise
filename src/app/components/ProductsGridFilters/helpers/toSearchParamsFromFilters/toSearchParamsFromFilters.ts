@@ -1,6 +1,6 @@
 import type { ProductsGridFiltersState } from '../../types';
 
-export function toSearchParamsFromFitlers({
+export function toSearchParamsFromFilters({
   category,
   maxPrice,
   maxRating,
