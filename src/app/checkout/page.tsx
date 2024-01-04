@@ -1,10 +1,7 @@
-import Link from 'next/link';
+import { Checkout as CheckoutPage } from '@/app/components/Checkout/Checkout';
 
 export default function Checkout() {
   return (
-    <div>
-      <p>Success!</p>
-      <Link href="/products">Back to home</Link>
-    </div>
+    <CheckoutPage />
   );
 }

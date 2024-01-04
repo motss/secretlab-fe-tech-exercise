@@ -49,44 +49,47 @@ export function ProductDetails({
           <AddToCart stock={product.stock} value={value} onClick={handleClick} onInput={handleInput} />
         </section>
 
-        <section className="mb-4">
-          <h2 className="text-lg font-bold">Description</h2>
-          <p>{product.description}</p>
-        </section>
+        <dl className="mb-4">
+          <dt className="text-lg font-bold">Description</dt>
+          <dd>{product.description}</dd>
+        </dl>
 
-        <section className="mb-4">
-          <h2 className="text-lg font-bold">Attributes</h2>
-          <table>
-            <thead>
-              <tr>
-                <th className="border text-start px-2">Name</th>
-                <th className="border text-start px-2">Value</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="border px-2">Price</td>
-                <td className="border px-2">${product.price.toFixed(2)}</td>
-              </tr>
-              <tr>
-                <td className="border px-2">Discount percentage</td>
-                <td className="border px-2">{product.discountPercentage.toFixed(2)}%</td>
-              </tr>
-              <tr>
-                <td className="border px-2">Brand</td>
-                <td className="border px-2">{product.brand}</td>
-              </tr>
-              <tr>
-                <td className="border px-2">Category</td>
-                <td className="border px-2">{product.category}</td>
-              </tr>
-              <tr>
-                <td className="border px-2">Stock</td>
-                <td className="border px-2">{product.stock}</td>
-              </tr>
-            </tbody>
-          </table>
-        </section>
+        <dl className="mb-4">
+          <dt className="text-lg font-bold">Attributes</dt>
+          <dd>
+            <table>
+              <caption className="sr-only">List of product attributes</caption>
+              <thead>
+                <tr>
+                  <th className="border text-start px-2">Name</th>
+                  <th className="border text-start px-2">Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="border px-2">Price</td>
+                  <td className="border px-2">${product.price.toFixed(2)}</td>
+                </tr>
+                <tr>
+                  <td className="border px-2">Discount percentage</td>
+                  <td className="border px-2">{product.discountPercentage.toFixed(2)}%</td>
+                </tr>
+                <tr>
+                  <td className="border px-2">Brand</td>
+                  <td className="border px-2">{product.brand}</td>
+                </tr>
+                <tr>
+                  <td className="border px-2">Category</td>
+                  <td className="border px-2">{product.category}</td>
+                </tr>
+                <tr>
+                  <td className="border px-2">Stock</td>
+                  <td className="border px-2">{product.stock}</td>
+                </tr>
+              </tbody>
+            </table>
+          </dd>
+        </dl>
       </div>
     </section>
   ) : null;

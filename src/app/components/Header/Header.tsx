@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { HeaderCartCount } from './HeaderCartCount/HeaderCartCount';
+import { HeaderCartCount } from '../HeaderCartCount/HeaderCartCount';
 
 export function Header() {
   return (

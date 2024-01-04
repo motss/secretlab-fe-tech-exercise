@@ -16,13 +16,13 @@ export function Price<As extends keyof JSX.IntrinsicElements>({
   const { priceAfterDiscount } = computePriceWithoutDiscount({ discountPercentage, price });
 
   return (
-    <Comp className={`flex items-center gap-2 ${className}`}>
+    <Comp className={`flex items-baseline gap-2 ${className}`}>
       {priceAfterDiscount ? (
         <>
           <p className={fontSizeCls}>${priceAfterDiscount.toFixed(2)}</p>
         </>
       ) : null}
-      <p className={priceAfterDiscount ? `line-through text-gray-500 ${fontSizeCls}` : 'text-slate-950'}>{price.toFixed(2)}</p>
+      <p className={priceAfterDiscount ? `line-through text-gray-500 ${isSizeSmall ? 'text-sm' : 'text-lg'}` : `${fontSizeCls}`}>{price.toFixed(2)}</p>
     </Comp>
   );
 }

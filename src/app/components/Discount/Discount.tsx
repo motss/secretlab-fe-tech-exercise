@@ -10,7 +10,7 @@ export function Discount({
 
   return (
     <Pill className="!ps-2 !pe-2" as="p">
-      Save ${discountPrice.toFixed(2)} ({discountPercentage}%)
+      Save ${discountPrice.toFixed(2)} ({discountPercentage}% off)
     </Pill>
   );
 }

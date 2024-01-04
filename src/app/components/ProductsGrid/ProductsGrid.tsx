@@ -15,7 +15,7 @@ export function ProductsGrid({
         {products.map((product) => {
           return (
             <li key={product.id}>
-              <Link href={`/product/${product.id}`}>
+              <Link href={`/products/${product.id}`}>
                 <ProductCard product={product} />
               </Link>
             </li>

@@ -1,0 +1,23 @@
+.loader {
+  --_a: no-repeat radial-gradient(farthest-side, #a6c1e5 94%, rgba(0 0 0 / 0));
+  --_b: no-repeat radial-gradient(farthest-side, #a7e5a6 94%, rgba(0 0 0 / 0));
+  --_c: no-repeat radial-gradient(farthest-side, #e5a6e4 94%, rgba(0 0 0 / 0));
+  --_d: no-repeat radial-gradient(farthest-side, #e5b4a6 94%, rgba(0 0 0 / 0));
+
+  width: 130px;
+  aspect-ratio: 1;
+  background:
+    var(--_a) 0 0,
+    var(--_b) 100% 0,
+    var(--_c) 100% 100%,
+    var(--_d) 0 100%;
+  background-size: 40% 40%;
+  animation: loading .5s infinite;
+}
+
+
+@keyframes loading {
+  100% {
+    background-position: 100% 0, 100% 100%, 0 100%, 0 0
+  }
+}
