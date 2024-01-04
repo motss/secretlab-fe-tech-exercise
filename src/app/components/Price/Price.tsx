@@ -18,12 +18,12 @@ export function Price<As extends keyof JSX.IntrinsicElements>({
 
   return (
     <Comp className={`flex items-baseline gap-2 ${className}`}>
-      {priceAfterDiscount ? (
+      {discountPercentage ? (
         <>
           <p className={fontSizeCls}>{formatPrice(priceAfterDiscount)}</p>
         </>
       ) : null}
-      <p className={priceAfterDiscount ? `line-through text-gray-500 ${isSizeSmall ? 'text-sm' : 'text-lg'}` : `${fontSizeCls}`}>{formatPrice(price)}</p>
+      <p className={discountPercentage ? `line-through text-gray-500 ${isSizeSmall ? 'text-sm' : 'text-lg'}` : `${fontSizeCls}`}>{formatPrice(price)}</p>
     </Comp>
   );
 }

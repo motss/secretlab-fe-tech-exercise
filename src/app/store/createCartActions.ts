@@ -49,10 +49,10 @@ export const createCartActions: StateCreator<AppStoreState, [], [], StoreCartAct
         const found = state.cart.products[uid];
 
         if (found) {
-          found.count += (offset || 0);
+          found.count += (offset ?? 0);
         } else {
           state.cart.products[uid] = {
-            count: 1,
+            count: offset ?? 1,
             discountSubtotal: 0,
             discountTotal: 0,
             product,

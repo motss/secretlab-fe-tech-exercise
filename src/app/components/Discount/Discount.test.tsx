@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import { Discount } from './Discount';
-import { DiscountProps } from './types';
+import type { DiscountProps } from './types';
 
 describe('Discount', () => {
   const defaultProps: DiscountProps = {

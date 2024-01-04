@@ -5,8 +5,9 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
   plugins: [tsconfigPaths(), react()],
   test: {
-    globals: true,
+    clearMocks: true,
     environment: 'happy-dom',
-    setupFiles: ['src/setupTest.ts']
+    globals: true,
+    setupFiles: ['src/setupTest.ts'],
   },
 });
