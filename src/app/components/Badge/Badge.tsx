@@ -1,3 +1,4 @@
+import { Pill } from '../Pill/Pill';
 import type { BadgeProps } from './types';
 
 export function Badge({
@@ -5,6 +6,6 @@ export function Badge({
   count,
 }: BadgeProps) {
   return (
-    <div className={`flex items-center justify-center aspect-video bg-pink-600 text-slate-50 rounded-3xl ps-1 pe-1 text-xs ${className}`}>{count}</div>
+    <Pill className={`text-xs h-4 pt-[1px] ${className}`} as='p'>{count}</Pill>
   );
 }

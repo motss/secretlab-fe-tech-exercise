@@ -9,7 +9,7 @@ export function ProductCard({
     <article data-id={product.id} data-stock={product.stock}>
       <img className="aspect-video object-contain object-center bg-slate-100 mb-2" decoding='async' loading='lazy' alt={''} src={product.thumbnail} />
 
-      <Rating rating={product.rating} />
+      <Rating className="mb-1" rating={product.rating} />
       <h2 className="text-xl">{product.title}</h2>
       <h2 className="text-slate-500">{product.category}</h2>
 

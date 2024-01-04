@@ -1,5 +1,4 @@
-import { Big } from 'big.js';
-
+import { computePriceWithoutDiscount } from '@/app/helpers/computePriceWithDiscount/computePriceWithDiscount';
 import type { PriceProps } from './types';
 
 export function Price<As extends keyof JSX.IntrinsicElements>({
@@ -13,22 +12,17 @@ export function Price<As extends keyof JSX.IntrinsicElements>({
 
   const isSizeSmall = size === 'small';
   const fontSizeCls = isSizeSmall ? 'text-lg' : 'text-2xl';
-  const discountFontSizeCls = isSizeSmall ? 'text-xs' : 'text-sm';
 
-  const priceBig = new Big(price);
-  const discountPercentageBig = new Big(discountPercentage ?? 0);
-  const discountPriceBig = priceBig.times(discountPercentageBig).div(100);
-  const discountedPriceBig = priceBig.minus(discountPriceBig);
+  const { priceAfterDiscount } = computePriceWithoutDiscount({ discountPercentage, price });
 
   return (
     <Comp className={`flex items-center gap-2 ${className}`}>
-      <p className={discountPriceBig.toNumber() ? `line-through text-gray-500 ${fontSizeCls}` : 'text-slate-950'}>{priceBig.toFixed(2)}</p>
-      {discountedPriceBig ? (
+      {priceAfterDiscount ? (
         <>
-          <p className={fontSizeCls}>${discountedPriceBig.toFixed(2)}</p>
-          <p className={`bg-pink-600 text-white rounded-2xl p-1 px-2 ${discountFontSizeCls}`}>{'-'}{discountPercentageBig.toFixed(2)}%</p>
+          <p className={fontSizeCls}>${priceAfterDiscount.toFixed(2)}</p>
         </>
       ) : null}
+      <p className={priceAfterDiscount ? `line-through text-gray-500 ${fontSizeCls}` : 'text-slate-950'}>{price.toFixed(2)}</p>
     </Comp>
   );
 }

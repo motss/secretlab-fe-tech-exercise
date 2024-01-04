@@ -1,4 +1,5 @@
-import { RatingIcon } from '../RatingIcon/RatingIcon';
+import { Pill } from '../Pill/Pill';
+import { StarFillIcon } from '../StartFillcon/StarFilIcon';
 import type { RatingProps } from './types';
 
 export function Rating({
@@ -6,8 +7,9 @@ export function Rating({
   rating,
 }: RatingProps) {
   return (
-    <p className={`flex gap-1 items-end text-sm ${className}`}>
-      <RatingIcon fill="#ff9800" width={20} />{Math.floor(rating)}
-    </p>
+    <Pill className={`gap-1 bg-slate-100 text-slate-950 ps-1 !pe-2 ${className}`}>
+      <StarFillIcon fill="#ff9800" />
+      {Math.floor(rating)}
+    </Pill>
   );
 }
